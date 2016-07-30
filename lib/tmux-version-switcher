@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+set -e
+
+tmuxvs:main() {
+    SESSION="sync-$TMUXVS_TOOL"
+
+    cmd="$1"
+    args=("$@")
+
+    if [[ ${#args[@]} -eq 0 ]]; then
+        local error="tmuxvs:errorarg:$TMUXVS_TOOL"
+        type "$error" &> /dev/null && "$error" || tmuxvs:errorarg
+        exit;
+    elif [[ "$cmd" != "run" ]] && [[ "$cmd" != "use" ]]; then
+        local error="tmuxvs:errorarg:$TMUXVS_TOOL"
+        type "$error" &> /dev/null && "$error" || tmuxvs:errorarg
+        exit;
+    elif [[ "$cmd" == "use" ]] && (( ${#args[@]} <= 1 )); then
+        local error="tmuxvs:errorarg:use:$TMUXVS_TOOL"
+        type "$error" &> /dev/null && "$error" || tmuxvs:errorarg:use
+        exit;
+    elif [[ "$cmd" == "run" ]] && (( ${#args[@]} <= 2 )); then
+        local error="tmuxvs:errorarg:run:$TMUXVS_TOOL"
+        type "$error" &> /dev/null && "$error" || tmuxvs:errorarg:run
+        exit;
+    fi
+
+    tmux new-session -d -s $SESSION
+
+    # NOTE: first command needs to have the target session specified, because
+    # otherwise it chooses the last activate session and might break things there.
+
+    tmux rename-window -t $SESSION:0 "$TMUXVS_TOOL"
+
+    tmuxvs:setup-panes
+
+    tmux select-layout tiled
+
+    tmux set synchronize-panes on
+
+    tmuxvs:run
+
+    echo "Created session '$SESSION' and activated synchronize"
+
+    tmux list-sessions
+
+    echo "Type
+    tmux attach-session -t $SESSION"
+}
+
+tmuxvs:run() {
+    if [[ $cmd == "run" ]]; then
+        local exec_cmd="${args[1]}"
+
+        local command
+        tmuxvs:run:$TMUXVS_TOOL "$exec_cmd"
+        if [[ -n "$command" ]]; then
+            tmux send-keys "$command" C-m
+        fi
+    fi
+}
+
+tmuxvs:setup-panes() {
+    offset=1
+    [[ $cmd == "run" ]] && offset=2
+
+    for ((i = $offset; i < ${#args[@]}; i = i+1)); do
+        local index=$(( i - 2 ))
+        echo "$SESSION:0:$index ${args[$i]}"
+
+        if (( $i > $offset )); then
+            tmux split-window -h
+        fi
+
+        local command
+        tmuxvs:use:$TMUXVS_TOOL
+        if [[ -n "$command" ]]; then
+            tmux send-keys "$command ${args[$i]}" C-m
+        fi
+
+    done
+}
+
+
+tmuxvs:errorarg:use() {
+    cat <<EOM
+Usage: $0 use [<version>]+
+EOM
+}
+
+tmuxvs:errorarg:run() {
+    cat <<EOM
+Usage: $0 run '\$x = 23' [<version>]+
+EOM
+}
+
+tmuxvs:errorarg() {
+    cat <<EOM
+Usage: $0 (use|run) <args>+
+EOM
+}
+
+tmuxvs:main "$@"
+

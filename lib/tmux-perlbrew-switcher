@@ -1,37 +1,17 @@
 #!/usr/bin/env bash
 
-SESSION=sync-perlbrew
+TMUXVS_TOOL=perlbrew
+APPDIR="$( dirname $0 )"
 
-args=("$@")
+tmuxvs:use:perlbrew() {
+    command="perlbrew use"
+}
 
-if (( ${#args[@]} == 0 )); then
-    echo "Specify perl versions"
-    exit;
-fi
+tmuxvs:run:perlbrew() {
+    local cmd="$1"
 
-tmux new-session -d -s $SESSION
+    command="perl -wE'$cmd'"
+}
 
-# NOTE: first command needs to have the target session specified, because
-# otherwise it chooses the last activate session and might break things there.
+source "$APPDIR/tmux-version-switcher"
 
-tmux rename-window -t $SESSION:0 'perlbrew'
-for ((i = 0; i < ${#args[@]}; i = i+1)); do
-    echo "$i ${args[$i]}"
-
-    if (( $i > 0 )); then
-        tmux split-window -h
-    fi
-
-    tmux send-keys "perlbrew use ${args[$i]}" C-m
-done
-
-tmux select-layout tiled
-
-tmux set synchronize-panes on
-
-echo "Created session '$SESSION' and activated synchronize"
-
-tmux list-sessions
-
-echo "Type
-tmux attach-session -t $SESSION"
