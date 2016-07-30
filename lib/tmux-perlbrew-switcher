@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+SESSION=sync-perlbrew
+
+args=("$@")
+
+if (( ${#args[@]} == 0 )); then
+    echo "Specify perl versions"
+    exit;
+fi
+
+tmux new-session -d -s $SESSION
+
+# NOTE: first command needs to have the target session specified, because
+# otherwise it chooses the last activate session and might break things there.
+
+tmux rename-window -t $SESSION:0 'perlbrew'
+for ((i = 0; i < ${#args[@]}; i = i+1)); do
+    echo "$i ${args[$i]}"
+
+    if (( $i > 0 )); then
+        tmux split-window -h
+    fi
+
+    tmux send-keys "perlbrew use ${args[$i]}" C-m
+done
+
+tmux select-layout tiled
+
+tmux set synchronize-panes on
+
+echo "Created session '$SESSION' and activated synchronize"
+
+tmux list-sessions
+
+echo "Type
+tmux attach-session -t $SESSION"
