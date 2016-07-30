@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-TMUXVS_TOOL=perlbrew
+TMUXVS_TOOL=plenv
 APPDIR="$( dirname $0 )"
 
-tmuxvs:use:perlbrew() {
-    command="perlbrew use"
+tmuxvs:use:plenv() {
+    command="plenv local"
 }
 
-tmuxvs:run:perlbrew() {
+tmuxvs:run:plenv() {
     command="perl -wE'$1'"
 }
 
