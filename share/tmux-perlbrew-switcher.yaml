@@ -1,0 +1,40 @@
+---
+name: tmux-perlbrew-switcher
+appspec: { "version": 0.001 }
+class: null
+title: tmux perlbrew switcher
+abstract: Open several perl versions in tmux panes
+
+subcommands:
+  local:
+    summary: Just initialize panes with given versions
+    parameters:
+    - &param_versions
+      name: versions
+      summary: list of perl versions
+      required: true
+      type: string
+      multiple: true
+      completion:
+        command_string: |
+          perlbrew list | sed -e 's/^[ *]*//'
+
+  run:
+    summary: Initialize panes and run code
+    parameters:
+    - name: code
+      summay: the code to execute
+      required: true
+      type: string
+    - *param_versions
+
+  exec:
+    summary: Initialize panes and exec command
+    parameters:
+    - name: command
+      summay: the command to execute
+      required: true
+      type: string
+    - *param_versions
+
+# vim:et:sts=2:sws=2:sw=2:foldmethod=indent

@@ -26,7 +26,7 @@ Does what `local` does and runs the specified command.
     # or
     % git hub clone perlpunk/tmux-version-switcher
     # put this in your .bashrc/.zshrc:
-    % source /path/to/tmux-version-switche/init
+    % source /path/to/tmux-version-switcher/init
 
 # Examples
 
