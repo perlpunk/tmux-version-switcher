@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+TMUXVS_TOOL=pyenv
+APPDIR="$( dirname $0 )"
+
+tmuxvs:local:pyenv() {
+    command="pyenv local"
+}
+
+tmuxvs:run:pyenv() {
+    echo "fixme - not yet implemented";
+    exit 1
+}
+
+source "$APPDIR/tmux-version-switcher"
+

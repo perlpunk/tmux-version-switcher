@@ -3,6 +3,7 @@ Select several interpreter versions in tmux panes automatically.
 * perlbrew
 * plenv
 * rbenv
+* pyenv
 
 Usage:
 
