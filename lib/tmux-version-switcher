@@ -65,7 +65,7 @@ tmuxvs:setup-panes() {
     [[ $cmd == "run" ]] && offset=2
 
     for ((i = $offset; i < ${#args[@]}; i = i+1)); do
-        local index=$(( i - 2 ))
+        local index=$(( i - $offset ))
         echo "$SESSION:0:$index ${args[$i]}"
 
         if (( $i > $offset )); then
