@@ -3,8 +3,8 @@
 TMUXVS_TOOL=perlbrew
 APPDIR="$( dirname $0 )"
 
-tmuxvs:use:perlbrew() {
-    command="perlbrew use"
+tmuxvs:local:perlbrew() {
+    command="perlbrew local"
 }
 
 tmuxvs:run:perlbrew() {
