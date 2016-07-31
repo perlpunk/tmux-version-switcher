@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+APPDIR="$( dirname $0 )"
+
+[[ $APPDIR =~ ^/ ]] || APPDIR="$PWD/$APPDIR"
+
+PATH=$APPDIR/lib:$PATH
