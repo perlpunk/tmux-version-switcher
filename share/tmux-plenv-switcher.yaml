@@ -1,7 +1,7 @@
 ---
-name: tmux-perlbrew-switcher
+name: tmux-plenv-switcher
 appspec: { "version": 0.001 }
-title: tmux perlbrew switcher
+title: tmux plenv switcher
 abstract: Open several perl versions in tmux panes
 
 subcommands:
@@ -16,7 +16,7 @@ subcommands:
       multiple: true
       completion:
         command_string: |
-          perlbrew list | sed -e 's/^[ *]*//'
+          plenv install --list | sed -e 's/^[ *]*//'
 
 
   run:
