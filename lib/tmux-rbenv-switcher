@@ -3,8 +3,8 @@
 TMUXVS_TOOL=rbenv
 APPDIR="$( dirname $0 )"
 
-tmuxvs:local:rbenv() {
-    command="rbenv local"
+tmuxvs:shell:rbenv() {
+    command="rbenv shell"
 }
 
 tmuxvs:run:rbenv() {

@@ -5,7 +5,7 @@ title: tmux $TOOL switcher
 abstract: Open several $LANG versions in tmux panes
 
 subcommands:
-  local:
+  shell:
     summary: Just initialize panes with given versions
     parameters:
     - &param_versions

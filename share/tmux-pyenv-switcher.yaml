@@ -5,7 +5,7 @@ title: tmux pyenv switcher
 abstract: Open several ruby versions in tmux panes
 
 subcommands:
-  local:
+  shell:
     summary: Just initialize panes with given versions
     parameters:
     - &param_versions

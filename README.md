@@ -7,18 +7,18 @@ Select several interpreter versions in tmux panes automatically.
 
 # Usage
 
-    $tool local v1 v2 ...
+    $tool shell v1 v2 ...
 
 Opens tiled panes and selects the specified versions.
 Activates synchronize-panes.
 
     $tool run '$x = 23' v1 v2 ...
 
-Does what `local` does and runs the specified command in your interpreter.
+Does what `shell` does and runs the specified command in your interpreter.
 
     $tool exec 'perl myapp.pl' v1 v2 ...
 
-Does what `local` does and runs the specified command.
+Does what `shell` does and runs the specified command.
 
 # Installation
 
@@ -30,7 +30,7 @@ Does what `local` does and runs the specified command.
 
 # Examples
 
-    % tmux-perlbrew-switcher local perl-5.22.0 perl-5.24.0
+    % tmux-perlbrew-switcher shell perl-5.22.0 perl-5.24.0
     # tmux opens with two tiled panes, with the specified versions
 
     % tmux-perlbrew-switcher run '$x = 23' perl-5.22.0 perl-5.24.0
@@ -50,8 +50,8 @@ Sourcing the init script should happen before the compinit call.
 
 Then you will be able to do:
 
-    % $tool <TAB> # local, run, exec
-    % $tool local <TAB> # list versions
+    % $tool <TAB> # shell, run, exec
+    % $tool shell <TAB> # list versions
 
 # Requirements
 

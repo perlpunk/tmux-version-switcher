@@ -3,8 +3,8 @@
 TMUXVS_TOOL=pyenv
 APPDIR="$( dirname $0 )"
 
-tmuxvs:local:pyenv() {
-    command="pyenv local"
+tmuxvs:shell:pyenv() {
+    command="pyenv shell"
 }
 
 tmuxvs:run:pyenv() {

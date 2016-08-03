@@ -3,8 +3,8 @@
 TMUXVS_TOOL=plenv
 APPDIR="$( dirname $0 )"
 
-tmuxvs:local:plenv() {
-    command="plenv local"
+tmuxvs:shell:plenv() {
+    command="plenv shell"
 }
 
 tmuxvs:run:plenv() {

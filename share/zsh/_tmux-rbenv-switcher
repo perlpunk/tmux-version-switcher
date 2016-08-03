@@ -15,7 +15,7 @@ _tmux-rbenv-switcher() {
 
         case $state in
         cmd1)
-            _alternative 'args:cmd2:((_complete\:"Generate self completion" exec\:"Initialize panes and exec command" help\:"Show command help" local\:"Just initialize panes with given versions" run\:"Initialize panes and run code"))'
+            _alternative 'args:cmd2:((_complete\:"Generate self completion" exec\:"Initialize panes and exec command" help\:"Show command help" run\:"Initialize panes and run code" shell\:"Just initialize panes with given versions"))'
         ;;
 
         args)
@@ -67,7 +67,7 @@ _tmux-rbenv-switcher_exec_param_versions_completion
 
                 case $state in
                 cmd2)
-                    _alternative 'args:cmd3:((_complete exec local run))'
+                    _alternative 'args:cmd3:((_complete exec run shell))'
                 ;;
 
                 args)
@@ -98,9 +98,9 @@ _tmux-rbenv-switcher_exec_param_versions_completion
 
 
                     ;;
-                    local)
+                    run)
 
-                        # ---- Command: help local
+                        # ---- Command: help run
                         _arguments -s -C \
                             '1: :->cmd1' \
                             '2: :->cmd2' \
@@ -111,9 +111,9 @@ _tmux-rbenv-switcher_exec_param_versions_completion
 
 
                     ;;
-                    run)
+                    shell)
 
-                        # ---- Command: help run
+                        # ---- Command: help shell
                         _arguments -s -C \
                             '1: :->cmd1' \
                             '2: :->cmd2' \
@@ -129,23 +129,6 @@ _tmux-rbenv-switcher_exec_param_versions_completion
                 ;;
 
                 esac
-            ;;
-            local)
-
-                # ---- Command: local
-                _arguments -s -C \
-                    '1: :->cmd1' \
-                    '*: :->versions' \
-                    '--help[Show command help]' \
-                    '-h[Show command help]' \
-                    && ret=0
-
-                case $state in
-                versions)
-_tmux-rbenv-switcher_local_param_versions_completion
-                ;;
-                esac
-
             ;;
             run)
 
@@ -168,6 +151,23 @@ _tmux-rbenv-switcher_run_param_versions_completion
                 esac
 
             ;;
+            shell)
+
+                # ---- Command: shell
+                _arguments -s -C \
+                    '1: :->cmd1' \
+                    '*: :->versions' \
+                    '--help[Show command help]' \
+                    '-h[Show command help]' \
+                    && ret=0
+
+                case $state in
+                versions)
+_tmux-rbenv-switcher_shell_param_versions_completion
+                ;;
+                esac
+
+            ;;
             esac
 
         ;;
@@ -182,13 +182,13 @@ _tmux-rbenv-switcher_exec_param_versions_completion() {
 `
     compadd -X "versions:" $__dynamic_completion
 }
-_tmux-rbenv-switcher_local_param_versions_completion() {
+_tmux-rbenv-switcher_run_param_versions_completion() {
     local __dynamic_completion
     IFS=$'\n' set -A __dynamic_completion `rbenv versions | sed -e 's/^[ *]*//'
 `
     compadd -X "versions:" $__dynamic_completion
 }
-_tmux-rbenv-switcher_run_param_versions_completion() {
+_tmux-rbenv-switcher_shell_param_versions_completion() {
     local __dynamic_completion
     IFS=$'\n' set -A __dynamic_completion `rbenv versions | sed -e 's/^[ *]*//'
 `

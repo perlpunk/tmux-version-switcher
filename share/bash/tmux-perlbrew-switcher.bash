@@ -23,7 +23,7 @@ _tmux-perlbrew-switcher() {
 
     0)
         __comp_current_options || return
-        __tmux-perlbrew-switcher_dynamic_comp 'commands' '_complete'$'\t''Generate self completion'$'\n''exec'$'\t''Initialize panes and exec command'$'\n''help'$'\t''Show command help'$'\n''local'$'\t''Just initialize panes with given versions'$'\n''run'$'\t''Initialize panes and run code'
+        __tmux-perlbrew-switcher_dynamic_comp 'commands' '_complete'$'\t''Generate self completion'$'\n''exec'$'\t''Initialize panes and exec command'$'\n''help'$'\t''Show command help'$'\n''run'$'\t''Initialize panes and run code'$'\n''shell'$'\t''Just initialize panes with given versions'
 
     ;;
     *)
@@ -72,7 +72,7 @@ _tmux-perlbrew-switcher() {
 
         1)
             __comp_current_options || return
-            __tmux-perlbrew-switcher_dynamic_comp 'commands' '_complete'$'\n''exec'$'\n''local'$'\n''run'
+            __tmux-perlbrew-switcher_dynamic_comp 'commands' '_complete'$'\n''exec'$'\n''run'$'\n''shell'
 
         ;;
         *)
@@ -90,13 +90,13 @@ _tmux-perlbrew-switcher() {
             __tmux-perlbrew-switcher_handle_options_flags
             __comp_current_options true || return # no subcmds, no params/opts
           ;;
-          local)
+          run)
             FLAGS+=()
             OPTIONS+=()
             __tmux-perlbrew-switcher_handle_options_flags
             __comp_current_options true || return # no subcmds, no params/opts
           ;;
-          run)
+          shell)
             FLAGS+=()
             OPTIONS+=()
             __tmux-perlbrew-switcher_handle_options_flags
@@ -105,23 +105,6 @@ _tmux-perlbrew-switcher() {
         esac
 
         ;;
-        esac
-      ;;
-      local)
-        FLAGS+=()
-        OPTIONS+=()
-        __tmux-perlbrew-switcher_handle_options_flags
-          case $INDEX in
-          1)
-              __comp_current_options || return
-                _tmux-perlbrew-switcher_local_param_versions_completion
-          ;;
-          *)
-            __comp_current_options true || return # after parameters
-            case ${MYWORDS[$INDEX-1]} in
-
-            esac
-            ;;
         esac
       ;;
       run)
@@ -135,6 +118,23 @@ _tmux-perlbrew-switcher() {
           2)
               __comp_current_options || return
                 _tmux-perlbrew-switcher_run_param_versions_completion
+          ;;
+          *)
+            __comp_current_options true || return # after parameters
+            case ${MYWORDS[$INDEX-1]} in
+
+            esac
+            ;;
+        esac
+      ;;
+      shell)
+        FLAGS+=()
+        OPTIONS+=()
+        __tmux-perlbrew-switcher_handle_options_flags
+          case $INDEX in
+          1)
+              __comp_current_options || return
+                _tmux-perlbrew-switcher_shell_param_versions_completion
           ;;
           *)
             __comp_current_options true || return # after parameters
@@ -163,11 +163,11 @@ _tmux-perlbrew-switcher_exec_param_versions_completion() {
     local param_versions=`perlbrew list | sed -e 's/^[ *]*//'`
     _tmux-perlbrew-switcher_compreply "$param_versions"
 }
-_tmux-perlbrew-switcher_local_param_versions_completion() {
+_tmux-perlbrew-switcher_run_param_versions_completion() {
     local param_versions=`perlbrew list | sed -e 's/^[ *]*//'`
     _tmux-perlbrew-switcher_compreply "$param_versions"
 }
-_tmux-perlbrew-switcher_run_param_versions_completion() {
+_tmux-perlbrew-switcher_shell_param_versions_completion() {
     local param_versions=`perlbrew list | sed -e 's/^[ *]*//'`
     _tmux-perlbrew-switcher_compreply "$param_versions"
 }
