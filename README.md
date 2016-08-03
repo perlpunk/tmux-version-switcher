@@ -38,3 +38,24 @@ Does what `local` does and runs the specified command.
 
     % tmux-perlbrew-switcher exec 'perl myapp.pl' perl-5.22.0 perl-5.24.0
     # tmux opens with two tiled panes and runs `perl myapp.pl`
+
+# Shell Tab Completion
+
+There is tab completion available for bash and zsh.
+Sourcing the init script should set it all up for you.
+The files are in the share/bash and share/zsh folders.
+
+Note for zsh users:
+Sourcing the init script should happen before the compinit call.
+
+Then you will be able to do:
+
+    % $tool <TAB> # local, run, exec
+    % $tool local <TAB> # list versions
+
+# Requirements
+
+* bash
+* tmux
+* perlbrew, plenv, ...
+* sed (used in completion)
