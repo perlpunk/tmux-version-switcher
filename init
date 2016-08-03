@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-APPDIR="$( dirname $0 )"
+[[ -n ${ZSH_VERSION-} ]] &&
+    APPDIR="$( dirname $0 )" ||
+    APPDIR="$( dirname $BASH_SOURCE )"
 
 [[ $APPDIR =~ ^/ ]] || APPDIR="$PWD/$APPDIR"
 
-PATH=$APPDIR/lib:$PATH
+PATH="$APPDIR/lib:$PATH"
 
 # completion
 if [[ -n ${BASH_VERSION-} ]]; then
@@ -15,6 +17,6 @@ if [[ -n ${BASH_VERSION-} ]]; then
 
 elif [[ -n ${ZSH_VERSION-} ]]; then
   # note this must happen before the compinit call in your .zshrc
-  fpath=($APPDIR/share/zsh $fpath)
+  fpath=("$APPDIR/share/zsh" $fpath)
 
 fi
