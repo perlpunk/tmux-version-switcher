@@ -2,10 +2,10 @@
 
 # http://stackoverflow.com/questions/7267185/bash-autocompletion-add-description-for-possible-completions
 
-_tmux-plenv-switcher() {
+_tmux-rbenv-switcher() {
 
     COMPREPLY=()
-    local program=tmux-plenv-switcher
+    local program=tmux-rbenv-switcher
     local cur=${COMP_WORDS[$COMP_CWORD]}
 #    echo "COMP_CWORD:$COMP_CWORD cur:$cur" >>/tmp/comp
     declare -a FLAGS
@@ -17,13 +17,13 @@ _tmux-plenv-switcher() {
 
     FLAGS=('--help' 'Show command help' '-h' 'Show command help')
     OPTIONS=()
-    __tmux-plenv-switcher_handle_options_flags
+    __tmux-rbenv-switcher_handle_options_flags
 
     case $INDEX in
 
     0)
         __comp_current_options || return
-        __tmux-plenv-switcher_dynamic_comp 'commands' '_complete'$'\t''Generate self completion'$'\n''exec'$'\t''Initialize panes and exec command'$'\n''help'$'\t''Show command help'$'\n''local'$'\t''Just initialize panes with given versions'$'\n''run'$'\t''Initialize panes and run code'
+        __tmux-rbenv-switcher_dynamic_comp 'commands' '_complete'$'\t''Generate self completion'$'\n''exec'$'\t''Initialize panes and exec command'$'\n''help'$'\t''Show command help'$'\n''local'$'\t''Just initialize panes with given versions'$'\n''run'$'\t''Initialize panes and run code'
 
     ;;
     *)
@@ -32,7 +32,7 @@ _tmux-plenv-switcher() {
       _complete)
         FLAGS+=('--zsh' 'for zsh' '--bash' 'for bash')
         OPTIONS+=('--name' 'name of the program')
-        __tmux-plenv-switcher_handle_options_flags
+        __tmux-rbenv-switcher_handle_options_flags
           case $INDEX in
           *)
             __comp_current_options true || return # after parameters
@@ -47,14 +47,14 @@ _tmux-plenv-switcher() {
       exec)
         FLAGS+=()
         OPTIONS+=()
-        __tmux-plenv-switcher_handle_options_flags
+        __tmux-rbenv-switcher_handle_options_flags
           case $INDEX in
           1)
               __comp_current_options || return
           ;;
           2)
               __comp_current_options || return
-                _tmux-plenv-switcher_exec_param_versions_completion
+                _tmux-rbenv-switcher_exec_param_versions_completion
           ;;
           *)
             __comp_current_options true || return # after parameters
@@ -67,12 +67,12 @@ _tmux-plenv-switcher() {
       help)
         FLAGS+=('--all' '')
         OPTIONS+=()
-        __tmux-plenv-switcher_handle_options_flags
+        __tmux-rbenv-switcher_handle_options_flags
         case $INDEX in
 
         1)
             __comp_current_options || return
-            __tmux-plenv-switcher_dynamic_comp 'commands' '_complete'$'\n''exec'$'\n''local'$'\n''run'
+            __tmux-rbenv-switcher_dynamic_comp 'commands' '_complete'$'\n''exec'$'\n''local'$'\n''run'
 
         ;;
         *)
@@ -81,25 +81,25 @@ _tmux-plenv-switcher() {
           _complete)
             FLAGS+=()
             OPTIONS+=()
-            __tmux-plenv-switcher_handle_options_flags
+            __tmux-rbenv-switcher_handle_options_flags
             __comp_current_options true || return # no subcmds, no params/opts
           ;;
           exec)
             FLAGS+=()
             OPTIONS+=()
-            __tmux-plenv-switcher_handle_options_flags
+            __tmux-rbenv-switcher_handle_options_flags
             __comp_current_options true || return # no subcmds, no params/opts
           ;;
           local)
             FLAGS+=()
             OPTIONS+=()
-            __tmux-plenv-switcher_handle_options_flags
+            __tmux-rbenv-switcher_handle_options_flags
             __comp_current_options true || return # no subcmds, no params/opts
           ;;
           run)
             FLAGS+=()
             OPTIONS+=()
-            __tmux-plenv-switcher_handle_options_flags
+            __tmux-rbenv-switcher_handle_options_flags
             __comp_current_options true || return # no subcmds, no params/opts
           ;;
         esac
@@ -110,11 +110,11 @@ _tmux-plenv-switcher() {
       local)
         FLAGS+=()
         OPTIONS+=()
-        __tmux-plenv-switcher_handle_options_flags
+        __tmux-rbenv-switcher_handle_options_flags
           case $INDEX in
           1)
               __comp_current_options || return
-                _tmux-plenv-switcher_local_param_versions_completion
+                _tmux-rbenv-switcher_local_param_versions_completion
           ;;
           *)
             __comp_current_options true || return # after parameters
@@ -127,14 +127,14 @@ _tmux-plenv-switcher() {
       run)
         FLAGS+=()
         OPTIONS+=()
-        __tmux-plenv-switcher_handle_options_flags
+        __tmux-rbenv-switcher_handle_options_flags
           case $INDEX in
           1)
               __comp_current_options || return
           ;;
           2)
               __comp_current_options || return
-                _tmux-plenv-switcher_run_param_versions_completion
+                _tmux-rbenv-switcher_run_param_versions_completion
           ;;
           *)
             __comp_current_options true || return # after parameters
@@ -151,7 +151,7 @@ _tmux-plenv-switcher() {
 
 }
 
-_tmux-plenv-switcher_compreply() {
+_tmux-rbenv-switcher_compreply() {
     IFS=$'\n' COMPREPLY=($(compgen -W "$1" -- ${COMP_WORDS[COMP_CWORD]}))
     if [[ ${#COMPREPLY[*]} -eq 1 ]]; then # Only one completion
         COMPREPLY=( ${COMPREPLY[0]%% -- *} ) # Remove ' -- ' and everything after
@@ -159,20 +159,20 @@ _tmux-plenv-switcher_compreply() {
     fi
 }
 
-_tmux-plenv-switcher_exec_param_versions_completion() {
-    local param_versions=`plenv versions | sed -e 's/^[ *]*//'`
-    _tmux-plenv-switcher_compreply "$param_versions"
+_tmux-rbenv-switcher_exec_param_versions_completion() {
+    local param_versions=`rbenv versions | sed -e 's/^[ *]*//'`
+    _tmux-rbenv-switcher_compreply "$param_versions"
 }
-_tmux-plenv-switcher_local_param_versions_completion() {
-    local param_versions=`plenv versions | sed -e 's/^[ *]*//'`
-    _tmux-plenv-switcher_compreply "$param_versions"
+_tmux-rbenv-switcher_local_param_versions_completion() {
+    local param_versions=`rbenv versions | sed -e 's/^[ *]*//'`
+    _tmux-rbenv-switcher_compreply "$param_versions"
 }
-_tmux-plenv-switcher_run_param_versions_completion() {
-    local param_versions=`plenv versions | sed -e 's/^[ *]*//'`
-    _tmux-plenv-switcher_compreply "$param_versions"
+_tmux-rbenv-switcher_run_param_versions_completion() {
+    local param_versions=`rbenv versions | sed -e 's/^[ *]*//'`
+    _tmux-rbenv-switcher_compreply "$param_versions"
 }
 
-__tmux-plenv-switcher_dynamic_comp() {
+__tmux-rbenv-switcher_dynamic_comp() {
     local argname="$1"
     local arg="$2"
     local comp name desc cols desclength formatted
@@ -203,10 +203,10 @@ __tmux-plenv-switcher_dynamic_comp() {
             comp="$comp'$name'"$'\n'
         fi
     done <<< "$arg"
-    _tmux-plenv-switcher_compreply "$comp"
+    _tmux-rbenv-switcher_compreply "$comp"
 }
 
-function __tmux-plenv-switcher_handle_options() {
+function __tmux-rbenv-switcher_handle_options() {
     local i j
     declare -a copy
     local last="${MYWORDS[$INDEX]}"
@@ -233,7 +233,7 @@ function __tmux-plenv-switcher_handle_options() {
     MYWORDS=("${copy[@]}" "$last")
 }
 
-function __tmux-plenv-switcher_handle_flags() {
+function __tmux-rbenv-switcher_handle_flags() {
     local i j
     declare -a copy
     local last="${MYWORDS[$INDEX]}"
@@ -259,9 +259,9 @@ function __tmux-plenv-switcher_handle_flags() {
     MYWORDS=("${copy[@]}" "$last")
 }
 
-__tmux-plenv-switcher_handle_options_flags() {
-    __tmux-plenv-switcher_handle_options
-    __tmux-plenv-switcher_handle_flags
+__tmux-rbenv-switcher_handle_options_flags() {
+    __tmux-rbenv-switcher_handle_options
+    __tmux-rbenv-switcher_handle_flags
 }
 
 __comp_current_options() {
@@ -284,7 +284,7 @@ __comp_current_options() {
           local desc="${OPTIONS[$j+1]}"
           options_spec+="$name"$'\t'"$desc"$'\n'
       done
-      __tmux-plenv-switcher_dynamic_comp 'options' "$options_spec"
+      __tmux-rbenv-switcher_dynamic_comp 'options' "$options_spec"
 
       return 1
     else
@@ -293,5 +293,5 @@ __comp_current_options() {
 }
 
 
-complete -o default -F _tmux-plenv-switcher tmux-plenv-switcher
+complete -o default -F _tmux-rbenv-switcher tmux-rbenv-switcher
 

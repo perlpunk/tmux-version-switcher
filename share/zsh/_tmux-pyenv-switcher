@@ -1,7 +1,7 @@
-#compdef tmux-plenv-switcher
+#compdef tmux-pyenv-switcher
 
-_tmux-plenv-switcher() {
-    local program=tmux-plenv-switcher
+_tmux-pyenv-switcher() {
+    local program=tmux-pyenv-switcher
     typeset -A opt_args
     local curcontext="$curcontext" state line context
 
@@ -50,7 +50,7 @@ _tmux-plenv-switcher() {
 
                 ;;
                 versions)
-_tmux-plenv-switcher_exec_param_versions_completion
+_tmux-pyenv-switcher_exec_param_versions_completion
                 ;;
                 esac
 
@@ -142,7 +142,7 @@ _tmux-plenv-switcher_exec_param_versions_completion
 
                 case $state in
                 versions)
-_tmux-plenv-switcher_local_param_versions_completion
+_tmux-pyenv-switcher_local_param_versions_completion
                 ;;
                 esac
 
@@ -163,7 +163,7 @@ _tmux-plenv-switcher_local_param_versions_completion
 
                 ;;
                 versions)
-_tmux-plenv-switcher_run_param_versions_completion
+_tmux-pyenv-switcher_run_param_versions_completion
                 ;;
                 esac
 
@@ -176,26 +176,26 @@ _tmux-plenv-switcher_run_param_versions_completion
 
 }
 
-_tmux-plenv-switcher_exec_param_versions_completion() {
+_tmux-pyenv-switcher_exec_param_versions_completion() {
     local __dynamic_completion
-    IFS=$'\n' set -A __dynamic_completion `plenv versions | sed -e 's/^[ *]*//'
+    IFS=$'\n' set -A __dynamic_completion `pyenv versions | sed -e 's/^[ *]*//'
 `
     compadd -X "versions:" $__dynamic_completion
 }
-_tmux-plenv-switcher_local_param_versions_completion() {
+_tmux-pyenv-switcher_local_param_versions_completion() {
     local __dynamic_completion
-    IFS=$'\n' set -A __dynamic_completion `plenv versions | sed -e 's/^[ *]*//'
+    IFS=$'\n' set -A __dynamic_completion `pyenv versions | sed -e 's/^[ *]*//'
 `
     compadd -X "versions:" $__dynamic_completion
 }
-_tmux-plenv-switcher_run_param_versions_completion() {
+_tmux-pyenv-switcher_run_param_versions_completion() {
     local __dynamic_completion
-    IFS=$'\n' set -A __dynamic_completion `plenv versions | sed -e 's/^[ *]*//'
+    IFS=$'\n' set -A __dynamic_completion `pyenv versions | sed -e 's/^[ *]*//'
 `
     compadd -X "versions:" $__dynamic_completion
 }
 
-__tmux-plenv-switcher_dynamic_comp() {
+__tmux-pyenv-switcher_dynamic_comp() {
     local argname="$1"
     local arg="$2"
     local comp="arg:$argname:(("

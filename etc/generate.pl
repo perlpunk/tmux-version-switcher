@@ -57,5 +57,17 @@ plenv:
     lang: perl
     tool: plenv
     list_versions_cmd: |
-        plenv install --list | sed -e 's/^[ *]*//'
+        plenv versions | sed -e 's/^[ *]*//'
+rbenv:
+    program: tmux-rbenv-switcher
+    lang: ruby
+    tool: rbenv
+    list_versions_cmd: |
+        rbenv versions | sed -e 's/^[ *]*//'
+pyenv:
+    program: tmux-pyenv-switcher
+    lang: ruby
+    tool: pyenv
+    list_versions_cmd: |
+        pyenv versions | sed -e 's/^[ *]*//'
 

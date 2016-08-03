@@ -1,8 +1,8 @@
 ---
-name: tmux-plenv-switcher
+name: tmux-pyenv-switcher
 appspec: { "version": 0.001 }
-title: tmux plenv switcher
-abstract: Open several perl versions in tmux panes
+title: tmux pyenv switcher
+abstract: Open several ruby versions in tmux panes
 
 subcommands:
   local:
@@ -10,13 +10,13 @@ subcommands:
     parameters:
     - &param_versions
       name: versions
-      summary: list of perl versions
+      summary: list of ruby versions
       required: true
       type: string
       multiple: true
       completion:
         command_string: |
-          plenv versions | sed -e 's/^[ *]*//'
+          pyenv versions | sed -e 's/^[ *]*//'
 
 
   run:
