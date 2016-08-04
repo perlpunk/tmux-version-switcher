@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 TMUXVS_TOOL=rbenv
-APPDIR="$( dirname $0 )"
+APPDIR="$( dirname "$0" )"
 
 tmuxvs:shell:rbenv() {
     command="rbenv shell"

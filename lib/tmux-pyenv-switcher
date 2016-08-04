@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 TMUXVS_TOOL=pyenv
-APPDIR="$( dirname $0 )"
+APPDIR="$( dirname "$0" )"
 
 tmuxvs:shell:pyenv() {
     command="pyenv shell"

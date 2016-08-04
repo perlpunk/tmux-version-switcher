@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-APPNAME="$( basename $0 )"
+APPNAME="$( basename "$0" )"
 
 tmuxvs:main() {
     SESSION="sync-$TMUXVS_TOOL"

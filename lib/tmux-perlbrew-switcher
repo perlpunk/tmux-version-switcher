@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 TMUXVS_TOOL=perlbrew
-APPDIR="$( dirname $0 )"
+APPDIR="$( dirname "$0" )"
 
 tmuxvs:shell:perlbrew() {
     command="perlbrew use"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 TMUXVS_TOOL=plenv
-APPDIR="$( dirname $0 )"
+APPDIR="$( dirname "$0" )"
 
 tmuxvs:shell:plenv() {
     command="plenv shell"
